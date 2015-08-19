@@ -30,4 +30,24 @@ public class Link {
     public void setUrl(String url) {
         mUrl = url;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Link)) return false;
+
+        Link link = (Link) o;
+
+        if (getUrl() != null ? !getUrl().equals(link.getUrl()) : link.getUrl() != null)
+            return false;
+        return !(getTitle() != null ? !getTitle().equals(link.getTitle()) : link.getTitle() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getUrl() != null ? getUrl().hashCode() : 0;
+        result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
+        return result;
+    }
 }
