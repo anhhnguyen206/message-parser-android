@@ -1,0 +1,33 @@
+package anh.nguyen.messageparser.di;
+
+import org.mockito.Mockito;
+
+import javax.inject.Singleton;
+
+import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserver;
+import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserverTest;
+import anh.nguyen.messageparser.ui.view.MainView;
+import dagger.Module;
+import dagger.Provides;
+
+/**
+ * Created by nguyenhoanganh on 8/20/15.
+ */
+@Module(
+        library = true,
+        complete = false,
+        injects = ExtractMetadataObserverTest.class
+)
+public class TestExtractMetadataObserverModule {
+    @Provides
+    @Singleton
+    MainView provideMainView() {
+        return Mockito.mock(MainView.class);
+    }
+
+    @Provides
+    @Singleton
+    ExtractMetadataObserver provideExtractMetadataObserver(MainView mainView) {
+        return new ExtractMetadataObserver(mainView);
+    }
+}

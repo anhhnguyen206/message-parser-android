@@ -8,6 +8,8 @@ import rx.Observer;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
+ * ExtractMetadataObserver observes the result
+ * from an Observable of type Message Metadata
  */
 public class ExtractMetadataObserver implements Observer<MessageMetadata> {
     private MainView mMainView;
