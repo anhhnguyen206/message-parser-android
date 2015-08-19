@@ -5,9 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import anh.nguyen.messageparser.R;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import anh.nguyen.messageparser.R;
+import anh.nguyen.messageparser.common.base.InjectableActivity;
+import anh.nguyen.messageparser.model.MessageMetadata;
+
+public class MainActivity extends InjectableActivity implements MainView {
+
+    @Override
+    protected List<Object> getModules() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +44,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showMetadata(String message) {
+
+    }
+
+    @Override
+    public void showMetadata(MessageMetadata messageMetadata) {
+
+    }
+
+    @Override
+    public void showToast(String message) {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
     }
 }
