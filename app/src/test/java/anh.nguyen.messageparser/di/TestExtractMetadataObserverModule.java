@@ -1,5 +1,8 @@
 package anh.nguyen.messageparser.di;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.mockito.Mockito;
 
 import javax.inject.Singleton;
@@ -27,7 +30,13 @@ public class TestExtractMetadataObserverModule {
 
     @Provides
     @Singleton
-    ExtractMetadataObserver provideExtractMetadataObserver(MainView mainView) {
-        return new ExtractMetadataObserver(mainView);
+    Gson provideGson() {
+        return new GsonBuilder().setPrettyPrinting().create();
+    }
+
+    @Provides
+    @Singleton
+    ExtractMetadataObserver provideExtractMetadataObserver(MainView mainView, Gson gson) {
+        return new ExtractMetadataObserver(mainView, gson);
     }
 }

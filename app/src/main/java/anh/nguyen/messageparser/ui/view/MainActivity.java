@@ -47,12 +47,22 @@ public class MainActivity extends InjectableActivity implements MainView {
     }
 
     @Override
-    public void showMetadata(String message) {
+    public void bindMetadata(String message) {
 
     }
 
     @Override
-    public void showMetadata(MessageMetadata messageMetadata) {
+    public void bindMetadata(MessageMetadata messageMetadata) {
+
+    }
+
+    @Override
+    public void showMetadataAsString() {
+
+    }
+
+    @Override
+    public void showMetadataAsList() {
 
     }
 

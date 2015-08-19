@@ -1,5 +1,7 @@
 package anh.nguyen.messageparser.ui.observer;
 
+import com.google.gson.Gson;
+
 import javax.inject.Inject;
 
 import anh.nguyen.messageparser.model.MessageMetadata;
@@ -13,10 +15,12 @@ import rx.Observer;
  */
 public class ExtractMetadataObserver implements Observer<MessageMetadata> {
     private MainView mMainView;
+    private Gson mGson;
 
     @Inject
-    public ExtractMetadataObserver(MainView mainView) {
+    public ExtractMetadataObserver(MainView mainView, Gson gson) {
         mMainView = mainView;
+        mGson = gson;
     }
 
     @Override
@@ -31,6 +35,8 @@ public class ExtractMetadataObserver implements Observer<MessageMetadata> {
 
     @Override
     public void onNext(MessageMetadata messageMetadata) {
-        mMainView.showMetadata(messageMetadata);
+        mMainView.bindMetadata(messageMetadata);
+        mMainView.bindMetadata(mGson.toJson(messageMetadata));
+        mMainView.showMetadataAsList();
     }
 }
