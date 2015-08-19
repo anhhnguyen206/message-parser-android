@@ -14,7 +14,7 @@ import java.util.Arrays;
 import javax.inject.Inject;
 
 import anh.nguyen.messageparser.common.DocumentWrapper;
-import anh.nguyen.messageparser.di.TestExtractMetadataAsJsonStringInteractorModule;
+import anh.nguyen.messageparser.di.TestExtractMetadataInteractorModule;
 import anh.nguyen.messageparser.model.Link;
 import anh.nguyen.messageparser.model.MessageMetadata;
 import anh.nguyen.messageparser.parser.LinkParser;
@@ -24,10 +24,10 @@ import rx.observers.TestSubscriber;
 /**
  * Created by nguyenhoanganh on 8/19/15.
  */
-public class ExtractMetadataAsJsonStringInteractorImplTest {
+public class ExtractMetadataInteractorImplTest {
 
     @Inject
-    ExtractMetadataAsJsonStringInteractor mExtractMetadataAsJsonStringInteractor;
+    ExtractMetadataInteractor mExtractMetadataInteractor;
     @Inject
     LinkParser mLinkParser;
     @Inject
@@ -35,12 +35,12 @@ public class ExtractMetadataAsJsonStringInteractorImplTest {
 
     @Before
     public void setUp() throws Exception {
-        ObjectGraph.create(new TestExtractMetadataAsJsonStringInteractorModule()).inject(this);
+        ObjectGraph.create(new TestExtractMetadataInteractorModule()).inject(this);
     }
 
     @After
     public void tearDown() throws Exception {
-        mExtractMetadataAsJsonStringInteractor = null;
+        mExtractMetadataInteractor = null;
     }
 
     @Test
@@ -54,12 +54,12 @@ public class ExtractMetadataAsJsonStringInteractorImplTest {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String expect = gson.toJson(expectMessageMetadata);
 
-        TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-        mExtractMetadataAsJsonStringInteractor.execute(message)
+        TestSubscriber<MessageMetadata> testSubscriber = new TestSubscriber<>();
+        mExtractMetadataInteractor.execute(message)
                 .subscribe(testSubscriber);
 
         testSubscriber.assertNoErrors();
-        testSubscriber.assertReceivedOnNext(Arrays.asList(expect));
+        testSubscriber.assertReceivedOnNext(Arrays.asList(expectMessageMetadata));
     }
 
     @Test
@@ -72,15 +72,12 @@ public class ExtractMetadataAsJsonStringInteractorImplTest {
         expectMessageMetadata.setEmoticons(Arrays.asList("success"));
         expectMessageMetadata.setLinks(Arrays.asList(new Link("https://twitter.com/jdorfman/status/430511497475670016", "Error message")));
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String expect = gson.toJson(expectMessageMetadata);
-
-        TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-        mExtractMetadataAsJsonStringInteractor.execute(message)
+        TestSubscriber<MessageMetadata> testSubscriber = new TestSubscriber<>();
+        mExtractMetadataInteractor.execute(message)
                 .subscribe(testSubscriber);
 
         testSubscriber.assertNoErrors();
-        testSubscriber.assertReceivedOnNext(Arrays.asList(expect));
+        testSubscriber.assertReceivedOnNext(Arrays.asList(expectMessageMetadata));
 
 
     }

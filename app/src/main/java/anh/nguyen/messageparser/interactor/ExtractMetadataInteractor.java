@@ -1,16 +1,17 @@
 package anh.nguyen.messageparser.interactor;
 
+import anh.nguyen.messageparser.model.MessageMetadata;
 import rx.Observable;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
  * Contract interface for ExtractMetadataAsJsonString operation
  */
-public interface ExtractMetadataAsJsonStringInteractor {
+public interface ExtractMetadataInteractor {
     /**
-     * Return an rx.Observable of type String
+     * Return an rx.Observable of type MessageMetadata
      * @param message
      * @return Observable
      */
-    Observable<String> execute(String message);
+    Observable<MessageMetadata> execute(String message);
 }
