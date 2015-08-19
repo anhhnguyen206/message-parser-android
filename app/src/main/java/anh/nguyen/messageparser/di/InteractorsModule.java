@@ -2,8 +2,8 @@ package anh.nguyen.messageparser.di;
 
 import javax.inject.Singleton;
 
-import anh.nguyen.messageparser.interactor.ExtractMetadataAsJsonStringInteractor;
-import anh.nguyen.messageparser.interactor.ExtractMetadataAsJsonStringInteractorImpl;
+import anh.nguyen.messageparser.interactor.ExtractMetadataInteractor;
+import anh.nguyen.messageparser.interactor.ExtractMetadataInteractorImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -18,7 +18,7 @@ import dagger.Provides;
 public class InteractorsModule {
     @Provides
     @Singleton
-    ExtractMetadataAsJsonStringInteractor provideExtractMetadataInteractor(ExtractMetadataAsJsonStringInteractorImpl extractMetadataInteractor) {
+    ExtractMetadataInteractor provideExtractMetadataInteractor(ExtractMetadataInteractorImpl extractMetadataInteractor) {
         return extractMetadataInteractor;
     }
 }
