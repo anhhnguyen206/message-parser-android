@@ -11,12 +11,12 @@ public class HeaderItem extends MessageMetadataItem<String> {
     }
 
     @Override
-    int getType() {
+    public int getType() {
         return 0;
     }
 
     @Override
-    String getValue() {
+    public String getValue() {
         return mHeader;
     }
 }

@@ -11,12 +11,12 @@ public class EmoticonItem extends MessageMetadataItem<String> {
     }
 
     @Override
-    int getType() {
+    public int getType() {
         return MessageMetadataItem.EMOTICON;
     }
 
     @Override
-    String getValue() {
+    public String getValue() {
         return mEmoticon;
     }
 }

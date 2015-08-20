@@ -8,6 +8,6 @@ public abstract class MessageMetadataItem<T> {
     public static final int MENTION = 1;
     public static final int EMOTICON = 2;
     public static final int LINK = 3;
-    abstract int getType();
-    abstract T getValue();
+    public abstract int getType();
+    public abstract T getValue();
 }

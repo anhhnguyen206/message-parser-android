@@ -11,12 +11,12 @@ public class MentionItem extends MessageMetadataItem<String> {
     }
 
     @Override
-    int getType() {
+    public int getType() {
         return MessageMetadataItem.MENTION;
     }
 
     @Override
-    String getValue() {
+    public String getValue() {
         return mMention;
     }
 }

@@ -11,12 +11,12 @@ public class LinkItem extends MessageMetadataItem<Link> {
     }
 
     @Override
-    int getType() {
+    public int getType() {
         return LINK;
     }
 
     @Override
-    Link getValue() {
+    public Link getValue() {
         return mLink;
     }
 }
