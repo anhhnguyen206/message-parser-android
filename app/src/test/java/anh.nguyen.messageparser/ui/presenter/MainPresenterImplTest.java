@@ -106,7 +106,7 @@ public class MainPresenterImplTest {
         Mockito.verify(mMainView).showProgress();
         Mockito.verify(mMainView).bindMetadata(mMessageMetadata);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
-        Mockito.verify(mMainView).showMetadataAsCards();
+        Mockito.verify(mMainView).showMetadataAsList();
         Mockito.verify(mMainView).hideProgress();
 
         Mockito.verifyNoMoreInteractions(mMainView);
@@ -143,7 +143,7 @@ public class MainPresenterImplTest {
         Mockito.verify(mMainView).showProgress();
         Mockito.verify(mMainView).bindMetadata(mMessageMetadata);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
-        Mockito.verify(mMainView).showMetadataAsCards();
+        Mockito.verify(mMainView).showMetadataAsList();
         Mockito.verify(mMainView).hideProgress();
         Mockito.verifyNoMoreInteractions(mMainView);
     }
@@ -160,7 +160,7 @@ public class MainPresenterImplTest {
     public void showAsCards_viewShouldShowMetadataAsCards() {
         mMainPresenter.showAsCards();
 
-        Mockito.verify(mMainView).showMetadataAsCards();
+        Mockito.verify(mMainView).showMetadataAsList();
         Mockito.verifyNoMoreInteractions(mMainView);
     }
 }

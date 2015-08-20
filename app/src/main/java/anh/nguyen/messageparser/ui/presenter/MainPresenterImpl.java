@@ -53,7 +53,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void showAsCards() {
-        mMainView.showMetadataAsCards();
+        mMainView.showMetadataAsList();
     }
 
     @Override

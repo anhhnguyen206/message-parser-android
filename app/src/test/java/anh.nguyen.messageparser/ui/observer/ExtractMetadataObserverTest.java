@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
@@ -57,7 +56,7 @@ public class ExtractMetadataObserverTest {
         Mockito.verify(mMainView).bindMetadata(messageMetadata);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Mockito.verify(mMainView).bindMetadata(gson.toJson(messageMetadata));
-        Mockito.verify(mMainView).showMetadataAsCards();
+        Mockito.verify(mMainView).showMetadataAsList();
         mExtractMetadataObserver.onCompleted();
         Mockito.verify(mMainView).hideProgress();
         Mockito.verifyNoMoreInteractions(mMainView);

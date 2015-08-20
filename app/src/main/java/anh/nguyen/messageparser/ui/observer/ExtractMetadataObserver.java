@@ -37,6 +37,6 @@ public class ExtractMetadataObserver implements Observer<MessageMetadata> {
     public void onNext(MessageMetadata messageMetadata) {
         mMainView.bindMetadata(messageMetadata);
         mMainView.bindMetadata(mGson.toJson(messageMetadata));
-        mMainView.showMetadataAsCards();
+        mMainView.showMetadataAsList();
     }
 }
