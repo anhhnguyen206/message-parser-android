@@ -8,4 +8,5 @@ public interface MainPresenter {
     void pause();
     void parse(String chatMessage);
     void showAsJsonString();
+    void showAsCards();
 }

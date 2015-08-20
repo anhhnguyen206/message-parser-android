@@ -106,7 +106,7 @@ public class MainPresenterImplTest {
         Mockito.verify(mMainView).showProgress();
         Mockito.verify(mMainView).bindMetadata(mMessageMetadata);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
-        Mockito.verify(mMainView).showMetadataAsList();
+        Mockito.verify(mMainView).showMetadataAsCards();
         Mockito.verify(mMainView).hideProgress();
 
         Mockito.verifyNoMoreInteractions(mMainView);
@@ -132,7 +132,7 @@ public class MainPresenterImplTest {
     }
 
     @Test
-    public void testExtractMetadata() throws Exception {
+    public void parse_Successful() throws Exception {
         String message = "message";
 
         mMainPresenter.parse(message);
@@ -143,8 +143,24 @@ public class MainPresenterImplTest {
         Mockito.verify(mMainView).showProgress();
         Mockito.verify(mMainView).bindMetadata(mMessageMetadata);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
-        Mockito.verify(mMainView).showMetadataAsList();
+        Mockito.verify(mMainView).showMetadataAsCards();
         Mockito.verify(mMainView).hideProgress();
+        Mockito.verifyNoMoreInteractions(mMainView);
+    }
+
+    @Test
+    public void showAsJsonString_viewShouldShowMetadataAsString() {
+        mMainPresenter.showAsJsonString();
+
+        Mockito.verify(mMainView).showMetadataAsString();
+        Mockito.verifyNoMoreInteractions(mMainView);
+    }
+
+    @Test
+    public void showAsCards_viewShouldShowMetadataAsCards() {
+        mMainPresenter.showAsCards();
+
+        Mockito.verify(mMainView).showMetadataAsCards();
         Mockito.verifyNoMoreInteractions(mMainView);
     }
 }

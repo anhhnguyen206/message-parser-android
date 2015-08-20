@@ -48,7 +48,12 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void showAsJsonString() {
+        mMainView.showMetadataAsString();
+    }
 
+    @Override
+    public void showAsCards() {
+        mMainView.showMetadataAsCards();
     }
 
     @Override

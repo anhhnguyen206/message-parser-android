@@ -62,7 +62,7 @@ public class MainActivity extends InjectableActivity implements MainView {
     }
 
     @Override
-    public void showMetadataAsList() {
+    public void showMetadataAsCards() {
 
     }
 

@@ -9,7 +9,7 @@ public interface MainView {
     void bindMetadata(String message);
     void bindMetadata(MessageMetadata messageMetadata);
     void showMetadataAsString();
-    void showMetadataAsList();
+    void showMetadataAsCards();
     void showToast(String message);
     void showProgress();
     void hideProgress();

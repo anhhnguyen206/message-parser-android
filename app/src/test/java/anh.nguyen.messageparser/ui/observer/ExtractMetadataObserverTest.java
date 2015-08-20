@@ -57,7 +57,7 @@ public class ExtractMetadataObserverTest {
         Mockito.verify(mMainView).bindMetadata(messageMetadata);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Mockito.verify(mMainView).bindMetadata(gson.toJson(messageMetadata));
-        Mockito.verify(mMainView).showMetadataAsList();
+        Mockito.verify(mMainView).showMetadataAsCards();
         mExtractMetadataObserver.onCompleted();
         Mockito.verify(mMainView).hideProgress();
         Mockito.verifyNoMoreInteractions(mMainView);
