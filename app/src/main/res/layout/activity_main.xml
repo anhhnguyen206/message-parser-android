@@ -5,12 +5,30 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  tools:context="anh.nguyen.messageparser.ui.view.MainActivity">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+        <include layout="@layout/layout_toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_metadata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_scrollFlags="scroll|enterAlways"/>
+
+    <ScrollView
+        android:id="@+id/scroll_view_metadata_as_json"
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <AppCompatTextView
+            android:id="@+id/text_view_metadata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </ScrollView>
+
 
 </android.support.design.widget.CoordinatorLayout>
