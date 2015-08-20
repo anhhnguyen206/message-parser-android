@@ -7,16 +7,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import anh.nguyen.messageparser.common.MessageMetadataConverter;
 import anh.nguyen.messageparser.di.TestMainPresenterImplModule;
 import anh.nguyen.messageparser.interactor.ExtractMetadataInteractor;
+import anh.nguyen.messageparser.model.EmoticonItem;
+import anh.nguyen.messageparser.model.HeaderItem;
 import anh.nguyen.messageparser.model.Link;
 import anh.nguyen.messageparser.model.MessageMetadata;
+import anh.nguyen.messageparser.model.MessageMetadataItem;
 import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserver;
 import anh.nguyen.messageparser.ui.view.MainView;
 import dagger.ObjectGraph;
@@ -43,6 +49,8 @@ public class MainPresenterImplTest {
     TestScheduler mSubscribeOnScheduler;
     @Inject
     Gson mGson;
+    @Inject
+    MessageMetadataConverter mMessageMetadataConverter;
 
     MessageMetadata mMessageMetadata;
 
@@ -88,6 +96,13 @@ public class MainPresenterImplTest {
     public void resume_withExtract() throws Exception {
         String message = "message";
 
+        List<MessageMetadataItem> messageMetadataItems = new ArrayList<>();
+        messageMetadataItems.add(new HeaderItem("Header"));
+        messageMetadataItems.add(new EmoticonItem("Emoticon"));
+
+        Mockito.when(mMessageMetadataConverter.convert(mMessageMetadata))
+                .thenReturn(messageMetadataItems);
+
         mMainPresenter.parse(message);
 
         mSubscribeOnScheduler.advanceTimeBy(15, TimeUnit.MILLISECONDS);
@@ -104,7 +119,7 @@ public class MainPresenterImplTest {
         mObserveOnScheduler.advanceTimeBy(31, TimeUnit.MILLISECONDS);
 
         Mockito.verify(mMainView).showProgress();
-        Mockito.verify(mMainView).bindMetadata(mMessageMetadata);
+        Mockito.verify(mMainView).bindMetadata(messageMetadataItems);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
         Mockito.verify(mMainView).showMetadataAsList();
         Mockito.verify(mMainView).hideProgress();
@@ -135,13 +150,20 @@ public class MainPresenterImplTest {
     public void parse_Successful() throws Exception {
         String message = "message";
 
+        List<MessageMetadataItem> messageMetadataItems = new ArrayList<>();
+        messageMetadataItems.add(new HeaderItem("Header"));
+        messageMetadataItems.add(new EmoticonItem("Emoticon"));
+
+        Mockito.when(mMessageMetadataConverter.convert(mMessageMetadata))
+                .thenReturn(messageMetadataItems);
+
         mMainPresenter.parse(message);
 
         mSubscribeOnScheduler.advanceTimeBy(31, TimeUnit.MILLISECONDS);
         mObserveOnScheduler.advanceTimeBy(31, TimeUnit.MILLISECONDS);
 
         Mockito.verify(mMainView).showProgress();
-        Mockito.verify(mMainView).bindMetadata(mMessageMetadata);
+        Mockito.verify(mMainView).bindMetadata(messageMetadataItems);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
         Mockito.verify(mMainView).showMetadataAsList();
         Mockito.verify(mMainView).hideProgress();

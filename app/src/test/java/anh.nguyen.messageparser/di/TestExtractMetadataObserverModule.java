@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 
 import javax.inject.Singleton;
 
+import anh.nguyen.messageparser.common.MessageMetadataConverter;
 import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserver;
 import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserverTest;
 import anh.nguyen.messageparser.ui.view.MainView;
@@ -36,7 +37,13 @@ public class TestExtractMetadataObserverModule {
 
     @Provides
     @Singleton
-    ExtractMetadataObserver provideExtractMetadataObserver(MainView mainView, Gson gson) {
-        return new ExtractMetadataObserver(mainView, gson);
+    MessageMetadataConverter provideMessageMetadataConverter() {
+        return Mockito.mock(MessageMetadataConverter.class);
+    }
+
+    @Provides
+    @Singleton
+    ExtractMetadataObserver provideExtractMetadataObserver(MainView mainView, Gson gson, MessageMetadataConverter messageMetadataConverter) {
+        return new ExtractMetadataObserver(mainView, gson, messageMetadataConverter);
     }
 }

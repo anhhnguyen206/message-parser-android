@@ -8,13 +8,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import anh.nguyen.messageparser.common.MessageMetadataConverter;
 import anh.nguyen.messageparser.di.TestExtractMetadataObserverModule;
+import anh.nguyen.messageparser.model.EmoticonItem;
+import anh.nguyen.messageparser.model.HeaderItem;
 import anh.nguyen.messageparser.model.Link;
 import anh.nguyen.messageparser.model.MessageMetadata;
+import anh.nguyen.messageparser.model.MessageMetadataItem;
 import anh.nguyen.messageparser.ui.view.MainView;
 import dagger.ObjectGraph;
 
@@ -26,6 +32,8 @@ public class ExtractMetadataObserverTest {
     ExtractMetadataObserver mExtractMetadataObserver;
     @Inject
     MainView mMainView;
+    @Inject
+    MessageMetadataConverter mMessageMetadataConverter;
 
     @Before
     public void setUp() {
@@ -52,8 +60,16 @@ public class ExtractMetadataObserverTest {
         messageMetadata.setMentions(Arrays.asList("bob", "john"));
         messageMetadata.setEmoticons(Arrays.asList("success"));
         messageMetadata.setLinks(Arrays.asList(new Link("https://twitter.com/jdorfman/status/430511497475670016", "Twitter / jdorfman: nice @littlebigdetail from ...")));
+
+        List<MessageMetadataItem> messageMetadataItems = new ArrayList<>();
+        messageMetadataItems.add(new HeaderItem("Header"));
+        messageMetadataItems.add(new EmoticonItem("Emoticon"));
+
+        Mockito.when(mMessageMetadataConverter.convert(messageMetadata))
+                .thenReturn(messageMetadataItems);
         mExtractMetadataObserver.onNext(messageMetadata);
-        Mockito.verify(mMainView).bindMetadata(messageMetadata);
+
+        Mockito.verify(mMainView).bindMetadata(messageMetadataItems);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Mockito.verify(mMainView).bindMetadata(gson.toJson(messageMetadata));
         Mockito.verify(mMainView).showMetadataAsList();
