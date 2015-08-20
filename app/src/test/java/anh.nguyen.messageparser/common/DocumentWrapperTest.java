@@ -39,4 +39,22 @@ public class DocumentWrapperTest {
 
         assertNotNull(document);
     }
+
+    @Test (expected = Exception.class)
+    public void getDocument_404_shouldThrowException() throws Exception {
+        Connection mockedConnection = Mockito.mock(Connection.class);
+        Connection.Response mockedResponse = Mockito.mock(Connection.Response.class);
+
+        Mockito.when(mockedConnection.response())
+                .thenReturn(mockedResponse);
+
+        Mockito.when(mockedResponse.statusCode())
+                .thenReturn(404);
+
+        Mockito.when(mockedResponse.statusMessage())
+                .thenReturn("Page not found");
+
+        DocumentWrapper documentWrapper = new DocumentWrapper();
+        documentWrapper.get(mockedConnection);
+    }
 }
