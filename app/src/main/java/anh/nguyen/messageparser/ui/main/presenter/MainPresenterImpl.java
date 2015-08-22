@@ -36,6 +36,8 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void resume() {
+        // once the activity resumed
+        // we subscribe again so that we can continue to listen the observable
         if (mMetadataSubscription.isUnsubscribed() && mMetadataObservable != null) {
             mMetadataSubscription = mMetadataObservable.subscribe(mExtractMetadataObserver);
         }
@@ -43,6 +45,8 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void pause() {
+        // unsubscribe since we don't want the observable to emit results
+        // when our activity is paused, which means that our context might not be available
         mMetadataSubscription.unsubscribe();
     }
 
