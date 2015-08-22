@@ -2,6 +2,7 @@ package anh.nguyen.messageparser.ui.main.view;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -28,7 +29,7 @@ public class MainActivity extends InjectableActivity implements MainView {
     @Bind(R.id.recycler_view_metadata)
     RecyclerView mRecyclerViewMetadata;
     @Bind(R.id.scroll_view_metadata_as_json)
-    ScrollView mScrollViewMetadataAsJson;
+    NestedScrollView mScrollViewMetadataAsJson;
     @Bind(R.id.text_view_metadata)
     TextView mTextViewMetadata;
     @Bind(R.id.text_view_message)
