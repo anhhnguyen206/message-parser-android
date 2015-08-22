@@ -18,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import anh.nguyen.messageparser.R;
+import anh.nguyen.messageparser.common.DividerItemDecoration;
 import anh.nguyen.messageparser.common.base.InjectableActivity;
 import anh.nguyen.messageparser.di.MainActivityModule;
 import anh.nguyen.messageparser.model.MessageMetadataItem;
@@ -58,6 +59,7 @@ public class MainActivity extends InjectableActivity implements MainView {
         mProgressDialog.setMessage("Processing...");
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerViewMetadata.setLayoutManager(mLinearLayoutManager);
+        mRecyclerViewMetadata.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
     }
 
     @Override
