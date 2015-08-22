@@ -1,4 +1,4 @@
-package anh.nguyen.messageparser.ui.presenter;
+package anh.nguyen.messageparser.ui.main.presenter;
 
 import com.google.gson.Gson;
 
@@ -23,8 +23,8 @@ import anh.nguyen.messageparser.model.HeaderItem;
 import anh.nguyen.messageparser.model.Link;
 import anh.nguyen.messageparser.model.MessageMetadata;
 import anh.nguyen.messageparser.model.MessageMetadataItem;
-import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserver;
-import anh.nguyen.messageparser.ui.view.MainView;
+import anh.nguyen.messageparser.ui.main.observer.ExtractMetadataObserver;
+import anh.nguyen.messageparser.ui.main.view.MainView;
 import dagger.ObjectGraph;
 import rx.Observable;
 import rx.schedulers.TestScheduler;
@@ -121,7 +121,6 @@ public class MainPresenterImplTest {
         Mockito.verify(mMainView).showProgress();
         Mockito.verify(mMainView).bindMetadata(messageMetadataItems);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
-        Mockito.verify(mMainView).showMetadataAsList();
         Mockito.verify(mMainView).hideProgress();
 
         Mockito.verifyNoMoreInteractions(mMainView);
@@ -165,7 +164,6 @@ public class MainPresenterImplTest {
         Mockito.verify(mMainView).showProgress();
         Mockito.verify(mMainView).bindMetadata(messageMetadataItems);
         Mockito.verify(mMainView).bindMetadata(mGson.toJson(mMessageMetadata));
-        Mockito.verify(mMainView).showMetadataAsList();
         Mockito.verify(mMainView).hideProgress();
         Mockito.verifyNoMoreInteractions(mMainView);
     }

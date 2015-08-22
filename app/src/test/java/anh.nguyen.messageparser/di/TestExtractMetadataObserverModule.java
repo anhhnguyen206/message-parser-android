@@ -8,9 +8,9 @@ import org.mockito.Mockito;
 import javax.inject.Singleton;
 
 import anh.nguyen.messageparser.common.MessageMetadataConverter;
-import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserver;
-import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserverTest;
-import anh.nguyen.messageparser.ui.view.MainView;
+import anh.nguyen.messageparser.ui.main.observer.ExtractMetadataObserver;
+import anh.nguyen.messageparser.ui.main.observer.ExtractMetadataObserverTest;
+import anh.nguyen.messageparser.ui.main.view.MainView;
 import dagger.Module;
 import dagger.Provides;
 

@@ -10,11 +10,11 @@ import javax.inject.Singleton;
 
 import anh.nguyen.messageparser.common.MessageMetadataConverter;
 import anh.nguyen.messageparser.interactor.ExtractMetadataInteractor;
-import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserver;
-import anh.nguyen.messageparser.ui.presenter.MainPresenter;
-import anh.nguyen.messageparser.ui.presenter.MainPresenterImpl;
-import anh.nguyen.messageparser.ui.presenter.MainPresenterImplTest;
-import anh.nguyen.messageparser.ui.view.MainView;
+import anh.nguyen.messageparser.ui.main.observer.ExtractMetadataObserver;
+import anh.nguyen.messageparser.ui.main.presenter.MainPresenter;
+import anh.nguyen.messageparser.ui.main.presenter.MainPresenterImpl;
+import anh.nguyen.messageparser.ui.main.presenter.MainPresenterImplTest;
+import anh.nguyen.messageparser.ui.main.view.MainView;
 import dagger.Module;
 import dagger.Provides;
 import rx.schedulers.Schedulers;
