@@ -97,6 +97,7 @@ public class MetadataAdapter extends RecyclerView.Adapter<MetadataAdapter.BaseVi
     class HeaderViewHolder extends BaseViewHolder {
         @Bind(R.id.content)
         TextView mTextViewContent;
+
         public HeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -110,6 +111,7 @@ public class MetadataAdapter extends RecyclerView.Adapter<MetadataAdapter.BaseVi
     class ItemViewHolder extends BaseViewHolder {
         @Bind(R.id.content)
         TextView mTextViewContent;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

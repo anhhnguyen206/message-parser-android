@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme" parent="AppTheme.Base"/>
 
@@ -16,6 +16,7 @@
         <item name="android:windowMinWidthMinor">80%</item>
         <item name="android:windowMinWidthMajor">80%</item>
     </style>
+
     <style name="AppTheme.Translucent" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
     </style>

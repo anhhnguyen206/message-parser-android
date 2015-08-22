@@ -10,7 +10,7 @@ import anh.nguyen.messageparser.model.MessageMetadata;
 import anh.nguyen.messageparser.model.MessageMetadataItem;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by nguyenhoanganh on 8/21/15.

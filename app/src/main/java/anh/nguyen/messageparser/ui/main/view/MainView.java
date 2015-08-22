@@ -9,10 +9,16 @@ import anh.nguyen.messageparser.model.MessageMetadataItem;
  */
 public interface MainView {
     void bindMetadata(String message);
+
     void bindMetadata(List<MessageMetadataItem> messageMetadataItems);
+
     void showMetadataAsString();
+
     void showMetadataAsList();
+
     void showToast(String message);
+
     void showProgress();
+
     void hideProgress();
 }

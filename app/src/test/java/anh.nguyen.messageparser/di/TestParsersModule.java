@@ -27,7 +27,7 @@ public class TestParsersModule {
     @Provides
     @Singleton
     MentionParser provideMentionParser() {
-        MentionParser mentionParser =  Mockito.mock(MentionParser.class);
+        MentionParser mentionParser = Mockito.mock(MentionParser.class);
         Mockito.when(mentionParser.parse("@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016"))
                 .thenReturn(Arrays.asList("bob", "john"));
         return mentionParser;

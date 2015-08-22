@@ -3,7 +3,7 @@ package anh.nguyen.messageparser.model;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by nguyenhoanganh on 8/20/15.

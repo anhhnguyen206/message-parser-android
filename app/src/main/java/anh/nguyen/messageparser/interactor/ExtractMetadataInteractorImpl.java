@@ -1,8 +1,5 @@
 package anh.nguyen.messageparser.interactor;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import javax.inject.Inject;
 
 import anh.nguyen.messageparser.model.MessageMetadata;
@@ -34,6 +31,7 @@ public class ExtractMetadataInteractorImpl implements ExtractMetadataInteractor 
      * Given an input string
      * Perform the parsing logic inside an Observable
      * Immediately return the Observable
+     *
      * @param message
      * @return Observable<MessageMetadata>
      */

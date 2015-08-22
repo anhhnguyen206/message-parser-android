@@ -18,6 +18,7 @@ public class DocumentWrapper {
     /**
      * Get the document given a Connection as an input.  Throws exception if
      * the response of connection is a failure.
+     *
      * @param connection
      * @return
      * @throws Exception
@@ -33,6 +34,7 @@ public class DocumentWrapper {
 
     /**
      * Return the title of the Jsoup Document given the Document as input
+     *
      * @param document
      * @return
      */

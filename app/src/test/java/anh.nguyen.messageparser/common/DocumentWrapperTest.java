@@ -5,9 +5,9 @@ import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
@@ -40,7 +40,7 @@ public class DocumentWrapperTest {
         assertNotNull(document);
     }
 
-    @Test (expected = Exception.class)
+    @Test(expected = Exception.class)
     public void getDocument_404_shouldThrowException() throws Exception {
         Connection mockedConnection = Mockito.mock(Connection.class);
         Connection.Response mockedResponse = Mockito.mock(Connection.Response.class);

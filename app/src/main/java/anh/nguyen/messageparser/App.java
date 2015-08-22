@@ -1,7 +1,6 @@
 package anh.nguyen.messageparser;
 
 import android.app.Application;
-import android.content.Context;
 
 import java.util.List;
 

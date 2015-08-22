@@ -33,18 +33,16 @@ public class MainActivity extends InjectableActivity implements MainView {
     TextView mTextViewMetadata;
     @Bind(R.id.text_view_message)
     TextView mTextViewMessage;
+    ProgressDialog mProgressDialog;
+    LinearLayoutManager mLinearLayoutManager;
+    @Inject
+    MainPresenter mMainPresenter;
 
     @OnClick(R.id.button_parse)
     public void parse() {
         String message = mTextViewMessage.getText().toString();
         mMainPresenter.parse(message);
     }
-
-    ProgressDialog mProgressDialog;
-    LinearLayoutManager mLinearLayoutManager;
-
-    @Inject
-    MainPresenter mMainPresenter;
 
     @Override
     protected List<Object> getModules() {
@@ -82,7 +80,8 @@ public class MainActivity extends InjectableActivity implements MainView {
             case R.id.action_view_as_string:
                 showMetadataAsString();
                 return true;
-            default: return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

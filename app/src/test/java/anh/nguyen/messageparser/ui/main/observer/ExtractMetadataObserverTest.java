@@ -44,6 +44,7 @@ public class ExtractMetadataObserverTest {
     public void tearDown() {
         mExtractMetadataObserver = null;
     }
+
     @Test
     public void testOnError() {
         String errorMessage = Mockito.anyString();

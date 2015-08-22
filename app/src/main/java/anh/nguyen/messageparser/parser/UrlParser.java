@@ -13,6 +13,7 @@ public class UrlParser implements Parser<List<String>> {
 
     /**
      * Return a list of urls given a chat message
+     *
      * @param message
      * @return List of urls
      */

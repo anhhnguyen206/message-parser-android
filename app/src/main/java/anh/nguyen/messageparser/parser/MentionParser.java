@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
- *
  */
 public class MentionParser implements Parser<List<String>> {
     private static Pattern mentionPattern = Pattern.compile("@([a-zA-Z])\\w*");
 
     /**
      * Return a list of mentioned names given a chat message
+     *
      * @param chatMessage Input message
      * @return A list of mentioned names.
      */

@@ -14,6 +14,7 @@ import anh.nguyen.messageparser.common.ToolbarHelper;
  */
 public class LinearLayoutBehavior extends CoordinatorLayout.Behavior<LinearLayout> {
     private int mToolbarHeight;
+
     public LinearLayoutBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
         mToolbarHeight = ToolbarHelper.getToolbarHeight(context);
@@ -26,6 +27,7 @@ public class LinearLayoutBehavior extends CoordinatorLayout.Behavior<LinearLayou
 
     /**
      * Calculating how much of the AppBarLayout is scrolled off the screen and we are scrolling our LinearLayout accordingly
+     *
      * @param parent
      * @param linearLayout
      * @param dependency

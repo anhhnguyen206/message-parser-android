@@ -1,42 +1,44 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  tools:context="anh.nguyen.messageparser.ui.main.view.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primaryColor"
             android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ToolbarPopup"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
             app:theme="@style/ToolbarStyle"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:titleTextAppearance="@style/Toolbar.TitleText">
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:padding="@dimen/activity_horizontal_margin"
         android:id="@+id/recycler_view_metadata"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <ScrollView
         android:id="@+id/scroll_view_metadata_as_json"
-        android:padding="@dimen/activity_horizontal_margin"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:padding="@dimen/activity_horizontal_margin"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <TextView
             android:id="@+id/text_view_metadata"
             android:layout_width="match_parent"
@@ -44,25 +46,26 @@
     </ScrollView>
 
     <LinearLayout
-        android:padding="@dimen/activity_horizontal_margin"
-        app:layout_behavior="anh.nguyen.messageparser.ui.main.LinearLayoutBehavior"
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin"
+        app:layout_behavior="anh.nguyen.messageparser.ui.main.LinearLayoutBehavior">
+
         <EditText
             android:id="@+id/text_view_message"
-            android:hint="Type your message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Type your message"
             android:maxLines="3"/>
+
         <Button
             android:id="@+id/button_parse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Parse"/>
     </LinearLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

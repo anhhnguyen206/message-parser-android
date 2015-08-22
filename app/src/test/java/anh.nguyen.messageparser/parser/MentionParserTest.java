@@ -3,12 +3,13 @@ package anh.nguyen.messageparser.parser;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
@@ -25,6 +26,7 @@ public class MentionParserTest {
     public static void tearDown() {
         mMentionParser = null;
     }
+
     @Test
     public void parse_NoMentionChatMessage_ShouldReturnNoMention() {
         String noMentionChatMessage = "Hello, is it me you're looking for?";
@@ -32,6 +34,7 @@ public class MentionParserTest {
         List<String> actual = mMentionParser.parse(noMentionChatMessage);
         assertThat(actual, is(expected));
     }
+
     @Test
     public void parse_OneMentionChatMessage_ShouldReturnOneMention() {
         String oneMentionChatMessage = "@chris you around?";
