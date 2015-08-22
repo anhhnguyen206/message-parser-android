@@ -11,6 +11,7 @@
         <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
         <item name="windowActionBar">false</item>
         <item name="android:textAppearanceButton">@style/AppTheme.ButtonTextAppearance</item>
+        <item name="android:buttonStyle">@style/AppTheme.Button</item>
         <item name="android:actionBarStyle">@style/ToolbarStyle</item>
         <item name="android:windowMinWidthMinor">80%</item>
         <item name="android:windowMinWidthMajor">80%</item>
@@ -22,6 +23,11 @@
     <style name="AppTheme.ButtonTextAppearance" parent="Base.TextAppearance.AppCompat.Button">
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/primaryColor</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
