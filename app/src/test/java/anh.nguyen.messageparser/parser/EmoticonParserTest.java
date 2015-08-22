@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
@@ -36,7 +36,7 @@ public class EmoticonParserTest {
     }
 
     @Test
-    public void parse_OneEmoticon_ShouldReturnOneEmoticon () {
+    public void parse_OneEmoticon_ShouldReturnOneEmoticon() {
         String oneEmoticonChatMessage = "Good morning! (megusta)";
         List<String> expected = Arrays.asList("megusta");
         List<String> actual = mEmoticonParser.parse(oneEmoticonChatMessage);

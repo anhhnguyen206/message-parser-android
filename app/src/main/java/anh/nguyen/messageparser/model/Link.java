@@ -10,6 +10,7 @@ public class Link {
     private String mUrl;
     @SerializedName("title")
     private String mTitle;
+
     public Link(String url, String title) {
         mUrl = url;
         mTitle = title;

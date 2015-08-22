@@ -10,6 +10,7 @@ import rx.Observable;
 public interface ExtractMetadataInteractor {
     /**
      * Return an rx.Observable of type MessageMetadata
+     *
      * @param message
      * @return Observable
      */

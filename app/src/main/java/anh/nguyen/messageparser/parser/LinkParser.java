@@ -23,6 +23,7 @@ public class LinkParser implements Parser<List<Link>> {
 
     /**
      * Return a list of Link objects given a chat message as input
+     *
      * @param message
      * @return List of Link objects
      */
