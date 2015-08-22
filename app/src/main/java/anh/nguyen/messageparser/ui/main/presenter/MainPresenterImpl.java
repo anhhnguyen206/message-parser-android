@@ -1,12 +1,12 @@
-package anh.nguyen.messageparser.ui.presenter;
+package anh.nguyen.messageparser.ui.main.presenter;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import anh.nguyen.messageparser.interactor.ExtractMetadataInteractor;
 import anh.nguyen.messageparser.model.MessageMetadata;
-import anh.nguyen.messageparser.ui.observer.ExtractMetadataObserver;
-import anh.nguyen.messageparser.ui.view.MainView;
+import anh.nguyen.messageparser.ui.main.observer.ExtractMetadataObserver;
+import anh.nguyen.messageparser.ui.main.view.MainView;
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscription;

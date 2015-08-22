@@ -1,4 +1,4 @@
-package anh.nguyen.messageparser.ui.presenter;
+package anh.nguyen.messageparser.ui.main.presenter;
 
 /**
  * Created by nguyenhoanganh on 8/20/15.

@@ -1,4 +1,4 @@
-package anh.nguyen.messageparser.ui.observer;
+package anh.nguyen.messageparser.ui.main.observer;
 
 import com.google.gson.Gson;
 
@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import anh.nguyen.messageparser.common.MessageMetadataConverter;
 import anh.nguyen.messageparser.model.MessageMetadata;
-import anh.nguyen.messageparser.ui.view.MainView;
+import anh.nguyen.messageparser.ui.main.view.MainView;
 import rx.Observer;
 
 /**
@@ -40,6 +40,5 @@ public class ExtractMetadataObserver implements Observer<MessageMetadata> {
     public void onNext(MessageMetadata messageMetadata) {
         mMainView.bindMetadata(mMessageMetadataConverter.convert(messageMetadata));
         mMainView.bindMetadata(mGson.toJson(messageMetadata));
-        mMainView.showMetadataAsList();
     }
 }

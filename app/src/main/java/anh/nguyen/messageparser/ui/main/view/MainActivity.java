@@ -1,23 +1,28 @@
-package anh.nguyen.messageparser.ui.view;
+package anh.nguyen.messageparser.ui.main.view;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import anh.nguyen.messageparser.R;
 import anh.nguyen.messageparser.common.base.InjectableActivity;
-import anh.nguyen.messageparser.model.MessageMetadata;
+import anh.nguyen.messageparser.di.MainActivityModule;
 import anh.nguyen.messageparser.model.MessageMetadataItem;
+import anh.nguyen.messageparser.ui.main.presenter.MainPresenter;
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class MainActivity extends InjectableActivity implements MainView {
     @Bind(R.id.recycler_view_metadata)
@@ -25,13 +30,25 @@ public class MainActivity extends InjectableActivity implements MainView {
     @Bind(R.id.scroll_view_metadata_as_json)
     ScrollView mScrollViewMetadataAsJson;
     @Bind(R.id.text_view_metadata)
-    AppCompatTextView mAppCompatTextViewMetadata;
+    TextView mTextViewMetadata;
+    @Bind(R.id.text_view_message)
+    TextView mTextViewMessage;
+
+    @OnClick(R.id.button_parse)
+    public void parse() {
+        String message = mTextViewMessage.getText().toString();
+        mMainPresenter.parse(message);
+    }
 
     ProgressDialog mProgressDialog;
+    LinearLayoutManager mLinearLayoutManager;
+
+    @Inject
+    MainPresenter mMainPresenter;
 
     @Override
     protected List<Object> getModules() {
-        return null;
+        return Arrays.asList((Object) new MainActivityModule(this));
     }
 
     @Override
@@ -40,6 +57,8 @@ public class MainActivity extends InjectableActivity implements MainView {
         setContentView(R.layout.activity_main);
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Processing...");
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerViewMetadata.setLayoutManager(mLinearLayoutManager);
     }
 
     @Override
@@ -56,22 +75,27 @@ public class MainActivity extends InjectableActivity implements MainView {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_view_as_list:
+                showMetadataAsList();
+                return true;
+            case R.id.action_view_as_string:
+                showMetadataAsString();
+                return true;
+            default: return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void bindMetadata(String message) {
-        mAppCompatTextViewMetadata.setText(message);
+        mTextViewMetadata.setText(message);
     }
 
     @Override
-    public void bindMetadata(List<MessageMetadataItem> messageMetadatas) {
-
+    public void bindMetadata(List<MessageMetadataItem> messageMetadataItems) {
+        MetadataAdapter metadataAdapter = new MetadataAdapter(messageMetadataItems);
+        mRecyclerViewMetadata.setAdapter(metadataAdapter);
+        metadataAdapter.notifyDataSetChanged();
     }
 
     @Override

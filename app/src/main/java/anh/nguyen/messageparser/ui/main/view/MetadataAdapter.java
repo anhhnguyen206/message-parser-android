@@ -1,11 +1,10 @@
-package anh.nguyen.messageparser.ui.view;
+package anh.nguyen.messageparser.ui.main.view;
 
-import android.os.Environment;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -21,7 +20,9 @@ import butterknife.ButterKnife;
 /**
  * Created by nguyenhoanganh on 8/20/15.
  */
-public class MetadataAdapter extends RecyclerView.Adapter<MetadataAdapter.ViewHolder> {
+public class MetadataAdapter extends RecyclerView.Adapter<MetadataAdapter.BaseViewHolder> {
+    private final static int HEADER_VIEW_TYPE = 0;
+    private final static int ITEM_VIEW_TYPE = 1;
     private List<MessageMetadataItem> mMessageMetadataItems;
 
     public MetadataAdapter(List<MessageMetadataItem> messageMetadataItems) {
@@ -29,22 +30,31 @@ public class MetadataAdapter extends RecyclerView.Adapter<MetadataAdapter.ViewHo
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        MessageMetadataItem messageMetadataItem = mMessageMetadataItems.get(position);
+    public MetadataAdapter.BaseViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = null;
-        switch (messageMetadataItem.getType()) {
-            case MessageMetadataItem.HEADER:
+        switch (viewType) {
+            case HEADER_VIEW_TYPE:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_header, viewGroup, false);
-                break;
+                return new HeaderViewHolder(view);
             default:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_metadata, viewGroup, false);
-                break;
+                return new ItemViewHolder(view);
         }
-        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public int getItemViewType(int position) {
+        MessageMetadataItem item = mMessageMetadataItems.get(position);
+
+        if (item.getType() == MessageMetadataItem.HEADER) {
+            return HEADER_VIEW_TYPE;
+        } else {
+            return ITEM_VIEW_TYPE;
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(MetadataAdapter.BaseViewHolder viewHolder, int position) {
         MessageMetadataItem messageMetadataItem = mMessageMetadataItems.get(position);
 
         String value = "";
@@ -75,16 +85,38 @@ public class MetadataAdapter extends RecyclerView.Adapter<MetadataAdapter.ViewHo
         return mMessageMetadataItems.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+        public BaseViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        abstract void bind(String content);
+    }
+
+    class HeaderViewHolder extends BaseViewHolder {
         @Bind(R.id.content)
-        AppCompatTextView mAppCompatTextViewContent;
-        public ViewHolder(View itemView) {
+        TextView mTextViewContent;
+        public HeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         public void bind(String content) {
-            mAppCompatTextViewContent.setText(content);
+            mTextViewContent.setText(content);
+        }
+    }
+
+    class ItemViewHolder extends BaseViewHolder {
+        @Bind(R.id.content)
+        TextView mTextViewContent;
+        public ItemViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(String content) {
+            mTextViewContent.setText(content);
         }
     }
 }

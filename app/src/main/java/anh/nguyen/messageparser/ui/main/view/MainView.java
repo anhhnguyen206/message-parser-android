@@ -1,8 +1,7 @@
-package anh.nguyen.messageparser.ui.view;
+package anh.nguyen.messageparser.ui.main.view;
 
 import java.util.List;
 
-import anh.nguyen.messageparser.model.MessageMetadata;
 import anh.nguyen.messageparser.model.MessageMetadataItem;
 
 /**
