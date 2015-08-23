@@ -45,27 +45,43 @@
             android:layout_height="match_parent"/>
     </android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin"
-        app:layout_behavior="anh.nguyen.messageparser.ui.main.LinearLayoutBehavior">
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        app:layout_behavior="anh.nguyen.messageparser.ui.main.RelativeLayoutBehavior">
 
-        <EditText
-            android:id="@+id/text_view_message"
-            android:layout_width="match_parent"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Type your message"
-            android:maxLines="3"/>
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/button_parse"
+            card_view:cardCornerRadius="4dp">
+            <EditText
+                android:id="@+id/text_view_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:hint="Type your message"
+                android:background="@android:color/white"
+                android:maxLines="3"/>
+        </android.support.v7.widget.CardView>
 
         <Button
             android:id="@+id/button_parse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
             android:text="Parse"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
