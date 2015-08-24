@@ -8,11 +8,14 @@ import java.util.List;
 
 import anh.nguyen.messageparser.common.DocumentWrapper;
 import anh.nguyen.messageparser.model.Link;
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.FuncN;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
  */
-public class LinkParser implements Parser<List<Link>> {
+public class LinkParser implements Parser<Observable<List<Link>>> {
     private UrlParser mUrlParser;
     private DocumentWrapper mDocumentWrapper;
 
@@ -28,23 +31,42 @@ public class LinkParser implements Parser<List<Link>> {
      * @return List of Link objects
      */
     @Override
-    public List<Link> parse(String message) {
+    public Observable<List<Link>> parse(String message) {
         List<String> urls = mUrlParser.parse(message);
-        List<Link> links = new ArrayList<>();
+        final List<Link> links = new ArrayList<>();
+        List<Observable<Link>> linkObservables = new ArrayList<>();
+        for (final String url : urls) {
+            Observable<Link> linkObservable = Observable.create(new Observable.OnSubscribe<Link>() {
+                @Override
+                public void call(Subscriber<? super Link> subscriber) {
+                    try {
+                        Connection connection = mDocumentWrapper.connect(url);
+                        Document document = mDocumentWrapper.get(connection);
+                        Link link = new Link(url, mDocumentWrapper.getTitle(document));
+                        subscriber.onNext(link);
+                    } catch (Exception e) {
+                        // unable to retrieve the page title, replacing title with the cause
+                        Link link = new Link(url, e.getMessage());
+                        subscriber.onNext(link);
+                    }
 
-        for (String url : urls) {
-            try {
-                Connection connection = mDocumentWrapper.connect(url);
-                Document document = mDocumentWrapper.get(connection);
-                Link link = new Link(url, mDocumentWrapper.getTitle(document));
-                links.add(link);
-            } catch (Exception e) {
-                // unable to retrieve the page title, replacing title with the cause
-                Link link = new Link(url, e.getMessage());
-                links.add(link);
-            }
+                    subscriber.onCompleted();
+                }
+            });
+
+            linkObservables.add(linkObservable);
         }
 
-        return links;
+        return Observable.zip(linkObservables, new FuncN<List<Link>>() {
+            @Override
+            public List<Link> call(Object... args) {
+                List<Link> links = new ArrayList<Link>();
+                for (Object emitted : args) {
+                    links.add((Link) emitted);
+                }
+
+                return links;
+            }
+        });
     }
 }

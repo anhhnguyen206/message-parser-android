@@ -1,13 +1,19 @@
 package anh.nguyen.messageparser.interactor;
 
-import javax.inject.Inject;
+import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import anh.nguyen.messageparser.model.Link;
 import anh.nguyen.messageparser.model.MessageMetadata;
 import anh.nguyen.messageparser.parser.EmoticonParser;
 import anh.nguyen.messageparser.parser.LinkParser;
 import anh.nguyen.messageparser.parser.MentionParser;
 import rx.Observable;
+import rx.Scheduler;
 import rx.Subscriber;
+import rx.functions.Action1;
 
 /**
  * Created by nguyenhoanganh on 8/19/15.
@@ -19,12 +25,16 @@ public class ExtractMetadataInteractorImpl implements ExtractMetadataInteractor 
     private MentionParser mMentionParser;
     private EmoticonParser mEmoticonParser;
     private LinkParser mLinkParser;
+    private Scheduler mSubscribeOnScheduler;
+    private Scheduler mObserveOnScheduler;
 
     @Inject
-    public ExtractMetadataInteractorImpl(MentionParser mentionParser, EmoticonParser emoticonParser, LinkParser linkParser) {
+    public ExtractMetadataInteractorImpl(MentionParser mentionParser, EmoticonParser emoticonParser, LinkParser linkParser, @Named("io-scheduler") Scheduler subscribeOnScheduler, @Named("ui-scheduler") Scheduler observeOnScheduler) {
         mMentionParser = mentionParser;
         mEmoticonParser = emoticonParser;
         mLinkParser = linkParser;
+        mSubscribeOnScheduler = subscribeOnScheduler;
+        mObserveOnScheduler = observeOnScheduler;
     }
 
     /**
@@ -39,17 +49,24 @@ public class ExtractMetadataInteractorImpl implements ExtractMetadataInteractor 
     public Observable<MessageMetadata> execute(final String message) {
         return Observable.create(new Observable.OnSubscribe<MessageMetadata>() {
             @Override
-            public void call(Subscriber<? super MessageMetadata> subscriber) {
-                MessageMetadata messageMetadata = new MessageMetadata();
+            public void call(final Subscriber<? super MessageMetadata> subscriber) {
+                final MessageMetadata messageMetadata = new MessageMetadata();
                 // parse mentions and add to the messageMetadata obj
                 messageMetadata.setMentions(mMentionParser.parse(message));
                 // parse emoticons and add to the messageMetadata obj
                 messageMetadata.setEmoticons(mEmoticonParser.parse(message));
                 // parse links and add to the messageMetadata obj
-                messageMetadata.setLinks(mLinkParser.parse(message));
+                mLinkParser.parse(message).subscribeOn(mSubscribeOnScheduler)
+                        .observeOn(mObserveOnScheduler)
+                        .subscribe(new Action1<List<Link>>() {
+                            @Override
+                            public void call(List<Link> links) {
+                                messageMetadata.setLinks(links);
+                                subscriber.onNext(messageMetadata);
+                                subscriber.onCompleted();
+                            }
+                        });
 
-                subscriber.onNext(messageMetadata);
-                subscriber.onCompleted();
             }
         });
     }

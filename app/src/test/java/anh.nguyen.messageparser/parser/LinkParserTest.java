@@ -12,6 +12,8 @@ import java.util.List;
 
 import anh.nguyen.messageparser.common.DocumentWrapper;
 import anh.nguyen.messageparser.model.Link;
+import rx.Observable;
+import rx.observers.TestSubscriber;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -43,9 +45,13 @@ public class LinkParserTest {
         Mockito.when(mockedDocumentWrapper.getTitle(Mockito.any(Document.class))).thenCallRealMethod();
 
         LinkParser linkParser = new LinkParser(mockedUrlParser, mockedDocumentWrapper);
-        List<Link> expect = new ArrayList<>();
-        List<Link> actual = linkParser.parse(noUrlChatMessage);
-        assertThat(actual, is(expect));
+        Observable<List<Link>> actual = linkParser.parse(noUrlChatMessage);
+
+        TestSubscriber testSubscriber = new TestSubscriber();
+        actual.subscribe(testSubscriber);
+
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertNoValues();
     }
 
     @Test
@@ -68,10 +74,14 @@ public class LinkParserTest {
         LinkParser linkParser = new LinkParser(mockedUrlParser, mockedDocumentWrapper);
         List<Link> expect = new ArrayList<>(1);
         expect.add(new Link("http://www.nbcolympics.com", "Unable to retrieve the page title"));
-        List<Link> actual = linkParser.parse(oneUrlChatMessage);
 
-        assertThat(actual.get(0).getUrl(), is(expect.get(0).getUrl()));
-        assertThat(actual.get(0).getTitle(), is(expect.get(0).getTitle()));
+        Observable<List<Link>> actual = linkParser.parse(oneUrlChatMessage);
+
+        TestSubscriber testSubscriber = new TestSubscriber();
+        actual.subscribe(testSubscriber);
+
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertReceivedOnNext(Arrays.asList(expect));
 
     }
 
@@ -95,10 +105,14 @@ public class LinkParserTest {
         LinkParser linkParser = new LinkParser(mockedUrlParser, mockedDocumentWrapper);
         List<Link> expect = new ArrayList<>(1);
         expect.add(new Link("http://www.nbcolympics.com", "NBC Olympics | 2014 NBC Olympics in Sochi Russia"));
-        List<Link> actual = linkParser.parse(oneUrlChatMessage);
 
-        assertThat(actual.get(0).getUrl(), is(expect.get(0).getUrl()));
-        assertThat(actual.get(0).getTitle(), is(expect.get(0).getTitle()));
+        Observable<List<Link>> actual = linkParser.parse(oneUrlChatMessage);
+
+        TestSubscriber testSubscriber = new TestSubscriber();
+        actual.subscribe(testSubscriber);
+
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertReceivedOnNext(Arrays.asList(expect));
     }
 
     @Test
@@ -135,11 +149,13 @@ public class LinkParserTest {
         List<Link> expect = new ArrayList<>(2);
         expect.add(new Link("https://twitter.com/jdorfman/status/430511497475670016", "Twitter / jdorfman: nice @littlebigdetail from ..."));
         expect.add(new Link("http://www.nbcolympics.com", "NBC Olympics | 2014 NBC Olympics in Sochi Russia"));
-        List<Link> actual = linkParser.parse(twoUrlChatMessage);
 
-        for (int i = 0; i < expect.size(); i++) {
-            assertThat(actual.get(i).getUrl(), is(expect.get(i).getUrl()));
-            assertThat(actual.get(i).getTitle(), is(expect.get(i).getTitle()));
-        }
+        Observable<List<Link>> actual = linkParser.parse(twoUrlChatMessage);
+
+        TestSubscriber testSubscriber = new TestSubscriber();
+        actual.subscribe(testSubscriber);
+
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertReceivedOnNext(Arrays.asList(expect));
     }
 }
