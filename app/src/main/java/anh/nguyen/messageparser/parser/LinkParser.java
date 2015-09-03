@@ -34,6 +34,11 @@ public class LinkParser implements Parser<Observable<List<Link>>> {
     public Observable<List<Link>> parse(String message) {
         List<String> urls = mUrlParser.parse(message);
         final List<Link> links = new ArrayList<>();
+
+        if (urls.size() == 0) {
+            return Observable.just(links);
+        }
+
         List<Observable<Link>> linkObservables = new ArrayList<>();
         for (final String url : urls) {
             Observable<Link> linkObservable = Observable.create(new Observable.OnSubscribe<Link>() {

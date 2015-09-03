@@ -13,6 +13,7 @@ import anh.nguyen.messageparser.parser.MentionParser;
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
+import rx.functions.Action0;
 import rx.functions.Action1;
 
 /**
@@ -58,15 +59,20 @@ public class ExtractMetadataInteractorImpl implements ExtractMetadataInteractor 
                 // parse links and add to the messageMetadata obj
                 mLinkParser.parse(message).subscribeOn(mSubscribeOnScheduler)
                         .observeOn(mObserveOnScheduler)
-                        .subscribe(new Action1<List<Link>>() {
+                        .doOnCompleted(new Action0() {
                             @Override
-                            public void call(List<Link> links) {
-                                messageMetadata.setLinks(links);
+                            public void call() {
                                 subscriber.onNext(messageMetadata);
                                 subscriber.onCompleted();
                             }
-                        });
-
+                        })
+                        .doOnNext(new Action1<List<Link>>() {
+                            @Override
+                            public void call(List<Link> links) {
+                                messageMetadata.setLinks(links);
+                            }
+                        })
+                        .subscribe();
             }
         });
     }
